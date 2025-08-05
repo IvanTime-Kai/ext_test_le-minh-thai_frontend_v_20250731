@@ -1,26 +1,292 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tw-animate-css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Font family definitions using Next.js font optimization */
+  --font-family-sans: var(--font-inter, 'Inter'), ui-sans-serif, system-ui, sans-serif;
+  --font-family-jp: var(--font-noto-sans-jp, 'Noto Sans JP'), ui-sans-serif, system-ui, sans-serif;
+  --font-family-mixed: var(--font-inter, 'Inter'), var(--font-noto-sans-jp, 'Noto Sans JP'), ui-sans-serif, system-ui, sans-serif;
+
+  /* Color palette based on your design system */
+  --color-white: #ffffff;
+  --color-primary-300: #FFCC21;
+  /* Light yellow */
+  --color-primary-400: #FF963C;
+  /* Orange */
+  --color-primary-500: #EA6C00;
+  /* Dark orange */
+  --color-secondary-300: #8FE9D0;
+  /* Mint green */
+  --color-black-500: #2E2E2E;
+  /* Text black */
+  --color-black-600: #414141;
+  /* Dark black */
+  --color-gray-400: #777777;
+  /* Gray */
+
+  /* Semantic color mappings */
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-black-500);
+  --color-primary: var(--color-primary-400);
+  --color-primary-foreground: var(--color-white);
+  --color-secondary: var(--color-secondary-300);
+  --color-secondary-foreground: var(--color-black-600);
+  --color-muted: #f9fafb;
+  --color-muted-foreground: var(--color-gray-400);
+  --color-accent: var(--color-primary-300);
+  --color-accent-foreground: var(--color-black-600);
+  --color-border: #e5e7eb;
+  --color-input: #e5e7eb;
+  --color-ring: var(--color-primary-400);
+
+  /* Chart colors */
+  --color-chart-1: var(--color-primary-400);
+  --color-chart-2: var(--color-secondary-300);
+  --color-chart-3: var(--color-primary-500);
+  --color-chart-4: var(--color-primary-300);
+  --color-chart-5: var(--color-gray-400);
+
+  /* Border radius */
+  --radius: 0.5rem;
+
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter spacing for Japanese text */
+  --letter-spacing-jp-tight: -0.01em;
+  --letter-spacing-jp-normal: 0;
+  --letter-spacing-jp-wide: 0.02em;
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Dark mode color overrides */
+.dark {
+  --color-background: var(--color-black-600);
+  --color-foreground: var(--color-white);
+  --color-muted: var(--color-black-500);
+  --color-muted-foreground: var(--color-gray-400);
+  --color-border: var(--color-black-500);
+  --color-input: var(--color-black-500);
+
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply box-border;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-family-mixed);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-mixed);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Component layer for typography utilities */
+@layer components {
+
+  /* Japanese text specific styling */
+  .jp-text {
+    font-family: var(--font-family-jp);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  /* English/Numbers specific styling */
+  .en-text {
+    font-family: var(--font-family-sans);
+  }
+
+  /* Mixed content (default) */
+  .mixed-text {
+    font-family: var(--font-family-mixed);
+  }
+
+  /* Heading styles */
+  .heading-1 {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-jp-tight);
+  }
+
+  .heading-2 {
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-jp-tight);
+  }
+
+  .heading-3 {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  .heading-4 {
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  /* Body text styles */
+  .body-large {
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  .body-base {
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  .body-small {
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  /* Caption and label styles */
+  .caption {
+    font-size: var(--font-size-xs);
+    font-weight: 400;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-wide);
+  }
+
+  .label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  /* Button text styles */
+  .button-text {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  /* Gradient backgrounds using primary colors */
+  .bg-gradient-primary {
+    background: linear-gradient(0deg, var(--color-primary-300), var(--color-primary-400));
+  }
+
+  .bg-gradient-primary-dark {
+    background: linear-gradient(0deg, var(--color-primary-400), var(--color-primary-500));
+  }
+}
+
+/* Utility layer */
+@layer utilities {
+
+  /* Font family utilities */
+  .font-inter {
+    font-family: var(--font-family-sans);
+  }
+
+  .font-noto-sans-jp {
+    font-family: var(--font-family-jp);
+  }
+
+  .font-mixed {
+    font-family: var(--font-family-mixed);
+  }
+
+  /* Letter spacing utilities for Japanese */
+  .tracking-jp-tight {
+    letter-spacing: var(--letter-spacing-jp-tight);
+  }
+
+  .tracking-jp-normal {
+    letter-spacing: var(--letter-spacing-jp-normal);
+  }
+
+  .tracking-jp-wide {
+    letter-spacing: var(--letter-spacing-jp-wide);
+  }
+
+  /* Text rendering optimization */
+  .text-render-optimize {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Color utilities based on your palette */
+  .text-primary-300 {
+    color: var(--color-primary-300);
+  }
+
+  .text-primary-400 {
+    color: var(--color-primary-400);
+  }
+
+  .text-primary-500 {
+    color: var(--color-primary-500);
+  }
+
+  .text-secondary-300 {
+    color: var(--color-secondary-300);
+  }
+
+  .text-black-500 {
+    color: var(--color-black-500);
+  }
+
+  .text-black-600 {
+    color: var(--color-black-600);
+  }
+
+  .text-gray-400 {
+    color: var(--color-gray-400);
+  }
+
+  .bg-primary-300 {
+    background-color: var(--color-primary-300);
+  }
+
+  .bg-primary-400 {
+    background-color: var(--color-primary-400);
+  }
+
+  .bg-primary-500 {
+    background-color: var(--color-primary-500);
+  }
+
+  .bg-secondary-300 {
+    background-color: var(--color-secondary-300);
+  }
 }
